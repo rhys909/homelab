@@ -7,6 +7,7 @@ My attempt to become more organised with my horribly unorganised homelab that is
 
 ## Diagrams
 Planned setup
+```mermaid
 graph TD
     Internet((Internet))
     Router[Router]
