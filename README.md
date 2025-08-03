@@ -7,33 +7,7 @@ My attempt to become more organised with my horribly unorganised homelab that is
 
 ## Diagrams
 Planned setup
-```mermaid
-graph TD
-    Internet((Internet))
-    Router[Router]
-    MeshAP[Wireless Mesh Node / AP]
-    NinasPC["Nina's PC (Wireless)"]
-    WiredPC["Desktop PC (Wired to Mesh Node)"]
-    Switch[8-Port Switch]
-    ThinClient1["Thin Client 1 (K8s Node)"]
-    ThinClient2["Thin Client 2 (K8s Node)"]
-    ThinClient3["Thin Client 3 (K8s Node)"]
-    PiHole1["Raspberry Pi 1 (PiHole)"]
-    PiHole2["Raspberry Pi 2 (PiHole)"]
-
-    Internet --> Router
-    Router --> MeshAP
-    Router --> Switch
-
-    MeshAP --> NinasPC
-    MeshAP --> WiredPC
-
-    Switch --> ThinClient1
-    Switch --> ThinClient2
-    Switch --> ThinClient3
-    Switch --> PiHole1
-    Switch --> PiHole2
-```
+![Planned Setup](docs/images/network_diagram.png)
 
 Planned interactions
 ```mermaid
