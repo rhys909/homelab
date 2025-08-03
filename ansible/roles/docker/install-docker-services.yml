@@ -1,0 +1,40 @@
+---
+- name: Deploy Plex and Grafana using Docker Swarm
+  hosts: plex_host
+  become: yes
+  vars:
+    stack_name: media
+    compose_src: ./docker-compose.swarm.yml
+    compose_dest: /opt/media/docker-compose.yml
+
+  tasks:
+    - name: Ensure target directory exists
+      file:
+        path: "{{ compose_dest | dirname }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy Docker Compose file to remote host
+      copy:
+        src: "{{ compose_src }}"
+        dest: "{{ compose_dest }}"
+        mode: '0644'
+
+    - name: Initialize Docker Swarm (if not already initialized)
+      shell: docker swarm init || true
+      register: swarm_init
+      changed_when: "'Swarm initialized' in swarm_init.stdout"
+
+    - name: Deploy media stack (Plex + Grafana)
+      shell: docker stack deploy -c {{ compose_dest }} {{ stack_name }}
+
+    - name: Wait for services to be up
+      shell: docker service ls --filter name={{ stack_name }} --format "{{ '{{.Name}} {{.Replicas}}' }}"
+      register: service_status
+      retries: 5
+      delay: 5
+      until: service_status.stdout.find("0/1") == -1
+
+    - name: Show deployed service status
+      debug:
+        var: service_status.stdout_lines
