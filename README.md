@@ -33,7 +33,7 @@ graph TD
     Switch --> ThinClient3
     Switch --> PiHole1
     Switch --> PiHole2
-
+```
 
 Planned interactions
 ```mermaid
@@ -56,3 +56,4 @@ graph TD
 
     cifsPlex -.-> smbServer[(CIFS/SMB Server)]
     cifsGrafana -.-> smbServer
+```
