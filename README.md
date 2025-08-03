@@ -7,6 +7,7 @@ My attempt to become more organised with my horribly unorganised homelab that is
 
 ## Diagrams
 Planned setup
+
 ![Planned Setup](docs/images/network_diagram.png)
 
 Planned interactions
